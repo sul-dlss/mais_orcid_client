@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe MaisOrcid::Client do
+RSpec.describe MaisOrcidClient do
   # NOTE: This spec uses vcr cassettes from the MAIS API that were edited to obscure access tokens.
   #   The 500 test is also hard to replicate since the API does not return 500s typically.
   #   If the cassettes are re-created, you need to edit the access tokens in the cassette files and in the expectations below.
@@ -19,7 +19,7 @@ RSpec.describe MaisOrcid::Client do
     it "retrieves users" do
       VCR.use_cassette("Mais_Client/_fetch_orcid_users/retrieves users") do
         expect(orcid_users.size).to eq(5)
-        expect(orcid_users.first).to eq(MaisOrcid::Client::OrcidUser.new("nataliex", "https://sandbox.orcid.org/0000-0001-7161-1827", ["/read-limited"],
+        expect(orcid_users.first).to eq(MaisOrcidClient::OrcidUser.new("nataliex", "https://sandbox.orcid.org/0000-0001-7161-1827", ["/read-limited"],
           "XXXXXXXX-1ac5-4ea7-835d-bc6d61ffb9a8", "2020-01-23T17:06:21.000"))
       end
     end
@@ -39,7 +39,7 @@ RSpec.describe MaisOrcid::Client do
 
     it "retrieves a single user" do
       VCR.use_cassette("Mais_Client/_fetch_orcid_user/retrieves user") do
-        expect(orcid_user).to eq(MaisOrcid::Client::OrcidUser.new("nataliex", "https://sandbox.orcid.org/0000-0001-7161-1827", ["/read-limited"],
+        expect(orcid_user).to eq(MaisOrcidClient::OrcidUser.new("nataliex", "https://sandbox.orcid.org/0000-0001-7161-1827", ["/read-limited"],
           "XXXXXXXX-1ac5-4ea7-835d-bc6d61ffb9a8", "2020-01-23T17:06:21.000"))
       end
     end

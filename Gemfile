@@ -2,7 +2,7 @@
 
 source "https://rubygems.org"
 
-# Specify your gem's dependencies in globus_client.gemspec
+# Specify your gem's dependencies in mais_orcid_client.gemspec
 gemspec
 
 gem "byebug"

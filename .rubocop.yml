@@ -3,9 +3,9 @@ inherit_mode:
     - Exclude
 
 require:
+  - standard
   - rubocop-performance
   - rubocop-rspec
-  - standard
 
 inherit_gem:
   standard: config/base.yml

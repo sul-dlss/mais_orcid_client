@@ -1,34 +1,33 @@
-[![Gem Version](https://badge.fury.io/rb/mais-orcid-client.svg)](https://badge.fury.io/rb/mais-orcid-client)
-[![CircleCI](https://circleci.com/gh/sul-dlss/mais-orcid-client.svg?style=svg)](https://circleci.com/gh/sul-dlss/mais-orcid-client)
-[![Maintainability](https://api.codeclimate.com/v1/badges/5919e7ae4cd162861585/maintainability)](https://codeclimate.com/github/sul-dlss/mais-orcid-client/maintainability)
-[![Test Coverage](https://api.codeclimate.com/v1/badges/5919e7ae4cd162861585/test_coverage)](https://codeclimate.com/github/sul-dlss/mais-orcid-client/test_coverage)
+[![Gem Version](https://badge.fury.io/rb/mais_orcid_client.svg)](https://badge.fury.io/rb/mais_orcid_client)
+[![CircleCI](https://circleci.com/gh/sul-dlss/mais_orcid_client.svg?style=svg)](https://circleci.com/gh/sul-dlss/mais_orcid_client)
+[![Maintainability](https://api.codeclimate.com/v1/badges/5919e7ae4cd162861585/maintainability)](https://codeclimate.com/github/sul-dlss/mais_orcid_client/maintainability)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/5919e7ae4cd162861585/test_coverage)](https://codeclimate.com/github/sul-dlss/mais_orcid_client/test_coverage)
 
-# mais-orcid-client
+# mais_orcid_client
 API client for accessing MAIS's ORCID endpoints.
 
 ## Installation
 
 Install the gem and add to the application's Gemfile by executing:
 
-    $ bundle add mais-orcid-client
+    $ bundle add mais_orcid_client
 
 If bundler is not being used to manage dependencies, install the gem by executing:
 
-    $ gem install mais-orcid-client
+    $ gem install mais_orcid_client
 
 ## Usage
 
 For one-off requests:
 
 ```ruby
-require "mais_orcid/client"
+require "mais_orcid_client"
 
 # NOTE: The settings below live in the consumer, not in the gem.
-client = MaisOrcid::Client.configure(
+client = MaisOrcidClient.configure(
   client_id: Settings.mais_orcid.client_id,
   client_secret: Settings.mais_orcid.client_secret,
-  base_url: Settings.mais_orcid.base_url,
-  transfer_endpoint_id: Settings.globus.transfer_endpoint_id
+  base_url: Settings.mais_orcid.base_url
 )
 client.fetch_orcid_user(sunetid: 'nataliex')
 ```
@@ -39,18 +38,17 @@ initializer and then invoke client methods in many other contexts where you want
 to be sure configuration has already occurred, e.g.:
 
 ```ruby
-# config/initializers/mais-orcid-client.rb
-MaisOrcid::Client.configure(
+# config/initializers/mais_orcid_client.rb
+MaisOrcidClient.configure(
   client_id: Settings.mais_orcid.client_id,
   client_secret: Settings.mais_orcid.client_secret,
-  base_url: Settings.mais_orcid.base_url,
-  transfer_endpoint_id: Settings.globus.transfer_endpoint_id
+  base_url: Settings.mais_orcid.base_url
 )
 
 # app/services/my_mais_orcid_service.rb
 # ...
 def create_user_directory
-  MaisOrcid::Client.fetch_orcid_user(sunetid: 'nataliex')
+  MaisOrcidClient.fetch_orcid_user(sunetid: 'nataliex')
 end
 # ...
 ```

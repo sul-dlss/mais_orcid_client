@@ -5,7 +5,7 @@ SimpleCov.start do
   add_filter "spec"
 end
 
-require "mais_orcid/client"
+require "mais_orcid_client"
 require "byebug"
 require "webmock/rspec"
 

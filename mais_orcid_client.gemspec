@@ -2,22 +2,22 @@
 
 lib = File.expand_path("lib", __dir__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require "mais_orcid/client/version"
+require "mais_orcid_client/version"
 
 Gem::Specification.new do |spec|
-  spec.name = "mais-orcid-client"
-  spec.version = MaisOrcid::Client::VERSION
+  spec.name = "mais_orcid_client"
+  spec.version = MaisOrcidClient::VERSION
   spec.authors = ["Peter Mangiafico", "Justin Littman"]
   spec.email = ["pmangiafico@stanford.edu", "jlittman@stanford.edu"]
 
   spec.summary = "Interface for interacting with the MAIS's ORCID API."
   spec.description = "This provides API interaction with the MAIS's ORCID API"
-  spec.homepage = "https://github.com/sul-dlss/mais-orcid-client"
+  spec.homepage = "https://github.com/sul-dlss/mais_orcid_client"
   spec.required_ruby_version = ">= 3.2.0"
 
   spec.metadata["homepage_uri"] = spec.homepage
-  spec.metadata["source_code_uri"] = "https://github.com/sul-dlss/mais-orcid-client"
-  spec.metadata["changelog_uri"] = "https://github.com/sul-dlss/mais-orcid-client/releases"
+  spec.metadata["source_code_uri"] = "https://github.com/sul-dlss/mais_orcid_client"
+  spec.metadata["changelog_uri"] = "https://github.com/sul-dlss/mais_orcid_client/releases"
   spec.metadata["rubygems_mfa_required"] = "true"
 
   # Specify which files should be added to the gem when it is released.

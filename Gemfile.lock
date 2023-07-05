@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    mais-orcid-client (0.1.0)
+    mais_orcid_client (0.1.0)
       activesupport (>= 4.2, < 8)
       faraday
       faraday-retry
@@ -25,7 +25,7 @@ GEM
       rexml
     diff-lcs (1.5.0)
     docile (1.4.0)
-    faraday (2.7.9)
+    faraday (2.7.10)
       faraday-net_http (>= 2.0, < 3.1)
       ruby2_keywords (>= 0.0.4)
     faraday-net_http (3.0.2)
@@ -137,7 +137,7 @@ PLATFORMS
 
 DEPENDENCIES
   byebug
-  mais-orcid-client!
+  mais_orcid_client!
   rake (~> 13.0)
   rspec (~> 3.0)
   rubocop-rspec
