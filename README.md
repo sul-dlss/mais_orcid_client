@@ -1,7 +1,7 @@
 [![Gem Version](https://badge.fury.io/rb/mais_orcid_client.svg)](https://badge.fury.io/rb/mais_orcid_client)
 [![CircleCI](https://circleci.com/gh/sul-dlss/mais_orcid_client.svg?style=svg)](https://circleci.com/gh/sul-dlss/mais_orcid_client)
-[![Maintainability](https://api.codeclimate.com/v1/badges/5919e7ae4cd162861585/maintainability)](https://codeclimate.com/github/sul-dlss/mais_orcid_client/maintainability)
-[![Test Coverage](https://api.codeclimate.com/v1/badges/5919e7ae4cd162861585/test_coverage)](https://codeclimate.com/github/sul-dlss/mais_orcid_client/test_coverage)
+[![Maintainability](https://api.codeclimate.com/v1/badges/25b4a4111f831121dda5/maintainability)](https://codeclimate.com/github/sul-dlss/mais_orcid_client/maintainability)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/25b4a4111f831121dda5/test_coverage)](https://codeclimate.com/github/sul-dlss/mais_orcid_client/test_coverage)
 
 # mais_orcid_client
 API client for accessing MAIS's ORCID endpoints.
