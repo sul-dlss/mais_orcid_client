@@ -57,9 +57,21 @@ class MaisOrcidClient
     end
   end
 
+  # Fetch a user details,  including scope and token, given either a SUNetID or ORCIDID
+  # @param [string] sunetid of user to fetch
+  # @param [orcid] orcidid of user to fetch (ignored if sunetid is also provided)
+  # @return [<OrcidUser>, nil] orcid user or nil if not found
+  def fetch_orcid_user(sunetid: nil, orcidid: nil)
+    raise "must provide either a sunetid or orcidid" unless sunetid || orcidid
+
+    sunetid ? fetch_by_sunetid(sunetid) : fetch_by_orcidid(orcidid)
+  end
+
+  private
+
   # @param [string] sunet to fetch
   # @return [<OrcidUser>, nil] orcid user or nil if not found
-  def fetch_orcid_user(sunetid:)
+  def fetch_by_sunetid(sunetid)
     result = get_response("/users/#{sunetid}", allow404: true)
 
     return if result.nil?
@@ -67,9 +79,29 @@ class MaisOrcidClient
     OrcidUser.new(result[:sunet_id], result[:orcid_id], result[:scope], result[:access_token], result[:last_updated])
   end
 
-  private
+  # @param [string] orcidid to fetch
+  # @return [<OrcidUser>, nil] orcid user or nil if not found
+  def fetch_by_orcidid(orcidid)
+    # NOTE: This is intended to be a temporary implementation that iterates over all users
+    # until we find the orcidid of interest and then return it.  It can be slow (1-2 minutes)
+    # if the orcidid queried is at the end of the list (or doesn't exist).
+    # The idea is that when MaIS implements this functionality in their API, we replace this
+    # iteration with a simple call to their API.
+    # see https://github.com/sul-dlss/happy-heron/issues/3164
+    next_page = first_page
+    loop do
+      response = get_response(next_page)
+      response[:results].each do |result|
+        if result[:orcid_id] == orcidid
+          return OrcidUser.new(result[:sunet_id], result[:orcid_id], result[:scope], result[:access_token], result[:last_updated])
+        end
+      end
+      next_page = response.dig(:links, :next)
+      return nil if last_page?(response[:links])
+    end
+  end
 
-  def first_page(page_size)
+  def first_page(page_size = nil)
     path = "/users?scope=ANY"
     path += "&page_size=#{page_size}" if page_size
     path
