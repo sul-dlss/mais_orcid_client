@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: post
-    uri: https://mais.stanford.edu/api/oauth/token
+    uri: https://aswsuat.stanford.edu/api/oauth/token
     body:
       encoding: UTF-8
       string: client_id=abc123&client_secret=def456&grant_type=client_credentials
@@ -46,7 +46,7 @@ http_interactions:
   recorded_at: Mon, 10 Jul 2023 22:32:53 GMT
 - request:
     method: get
-    uri: https://mais.stanford.edu/mais/orcid/v1/users?scope=ANY
+    uri: https://aswsuat.stanford.edu/mais/orcid/v1/users?scope=ANY
     body:
       encoding: US-ASCII
       string: ''
