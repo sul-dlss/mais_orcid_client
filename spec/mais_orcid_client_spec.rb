@@ -7,9 +7,9 @@ RSpec.describe MaisOrcidClient do
 
   subject do
     described_class.configure(
-      client_id: "abc123",
-      client_secret: "def456",
-      base_url: "https://mais.stanford.edu"
+      client_id: FAKE_CLIENT_ID,
+      client_secret: FAKE_CLIENT_SECRET,
+      base_url: "https://aswsuat.stanford.edu"
     )
   end
 
@@ -34,21 +34,46 @@ RSpec.describe MaisOrcidClient do
   end
 
   describe "#fetch_orcid_user" do
-    let(:orcid_user) { subject.fetch_orcid_user(sunetid: "nataliex") }
-    let(:bad_orcid_user) { subject.fetch_orcid_user(sunetid: "totally-bogus") }
+    let(:orcid_user_by_sunetid) { subject.fetch_orcid_user(sunetid: "nataliex") }
+    let(:bad_orcid_user_by_sunetid) { subject.fetch_orcid_user(sunetid: "totally-bogus") }
+    let(:orcid_user_by_orcidid) { subject.fetch_orcid_user(orcidid: "https://sandbox.orcid.org/0000-0002-5466-7797") }
+    let(:bad_orcid_user_by_orcidid) { subject.fetch_orcid_user(orcidid: "totally-bogus") }
+    let(:no_ids_provided) { subject.fetch_orcid_user }
 
-    it "retrieves a single user" do
+    it "retrieves a single user by sunetid" do
       VCR.use_cassette("Mais_Client/_fetch_orcid_user/retrieves user") do
-        expect(orcid_user).to eq(MaisOrcidClient::OrcidUser.new("nataliex", "https://sandbox.orcid.org/0000-0001-7161-1827", ["/read-limited"],
+        expect(orcid_user_by_sunetid).to eq(MaisOrcidClient::OrcidUser.new("nataliex", "https://sandbox.orcid.org/0000-0001-7161-1827", ["/read-limited"],
           "XXXXXXXX-1ac5-4ea7-835d-bc6d61ffb9a8", "2020-01-23T17:06:21.000"))
       end
     end
 
-    context "when a user is not found" do
+    context "when a sunetid user is not found" do
       it "returns nil" do
         VCR.use_cassette("Mais_Client/_fetch_orcid_user/raises") do
-          expect(bad_orcid_user).to be_nil
+          expect(bad_orcid_user_by_sunetid).to be_nil
         end
+      end
+    end
+
+    it "retrieves a single user by orcidid" do
+      VCR.use_cassette("Mais_Client/_fetch_orcid_users/retrieves all users") do
+        expect(orcid_user_by_orcidid).to eq(MaisOrcidClient::OrcidUser.new("vivnwong", "https://sandbox.orcid.org/0000-0002-5466-7797",
+          ["/read-limited", "/activities/update", "/person/update"],
+          "XXXXXXXX-7e60-4f7b-b7d4-4bd21d9c5618", "2021-05-28T09:50:14.000"))
+      end
+    end
+
+    context "when an orcidid user is not found" do
+      it "returns nil" do
+        VCR.use_cassette("Mais_Client/_fetch_orcid_users/retrieves all users") do
+          expect(bad_orcid_user_by_orcidid).to be_nil
+        end
+      end
+    end
+
+    context "when sunetid or orcidid not provided" do
+      it "raises an exception" do
+        expect { no_ids_provided }.to raise_error(StandardError)
       end
     end
   end

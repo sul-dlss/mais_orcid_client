@@ -58,3 +58,19 @@ end
 After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
 
 To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and the created tag, and push the `.gem` file to [rubygems.org](https://rubygems.org).
+
+## VCR Cassettes
+
+VCR gem is used to record the results of the API calls for the tests.  If you need to
+record or re-create existing cassettes, you may need to adjust expectations in the tests
+as the results coming back from the API may be different than when the cassettes were
+recorded.
+
+To record new cassettes:
+1. Temporarily adjust the configuration (client_id, client_secret for the MaIS UAT URL) at the top of `spec/mais_orcid_client_spec.rb` so it matches the real MaIS UAT environment.
+2. Add your new spec with a new cassette name (or delete a cassette to re-create it).
+3. Run just that new spec.
+4. You should get a new cassette with the name you specified in the spec.
+5. The cassette should have access tokens and secrets sanitized by the config in `spec_helper.rb`, but you can double check, EXCEPT for user access tokens in the user response.  These should be sanitized manaully (e.g. "access_token":"8d13b8bb-XXXX-YYYY-b7d6-87aecd5a8975")
+6. Set your configuration at the top of the spec back to the fake client_id and client_secret values.
+7. Re-run all the specs - they should pass now without making real calls.
