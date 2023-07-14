@@ -6,6 +6,8 @@
 # mais_orcid_client
 API client for accessing MAIS's ORCID endpoints.
 
+MAIS's ORCID API provides access to ORCID information for Stanford users. (This is different from orcid.org's ORCID API, which is supported by https://github.com/sul-dlss/orcid_client.)
+
 ## Installation
 
 Install the gem and add to the application's Gemfile by executing:
