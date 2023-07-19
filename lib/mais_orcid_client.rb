@@ -79,26 +79,18 @@ class MaisOrcidClient
     OrcidUser.new(result[:sunet_id], result[:orcid_id], result[:scope], result[:access_token], result[:last_updated])
   end
 
-  # @param [string] orcidid to fetch
+  # @param [string] orcidid to fetch (note any ORCID URI will be stripped, as MaIS endpoint requires bare ORCIDID only)
   # @return [<OrcidUser>, nil] orcid user or nil if not found
   def fetch_by_orcidid(orcidid)
-    # NOTE: This is intended to be a temporary implementation that iterates over all users
-    # until we find the orcidid of interest and then return it.  It can be slow (1-2 minutes)
-    # if the orcidid queried is at the end of the list (or doesn't exist).
-    # The idea is that when MaIS implements this functionality in their API, we replace this
-    # iteration with a simple call to their API.
-    # see https://github.com/sul-dlss/happy-heron/issues/3164
-    next_page = first_page
-    loop do
-      response = get_response(next_page)
-      response[:results].each do |result|
-        if result[:orcid_id] == orcidid
-          return OrcidUser.new(result[:sunet_id], result[:orcid_id], result[:scope], result[:access_token], result[:last_updated])
-        end
-      end
-      next_page = response.dig(:links, :next)
-      return nil if last_page?(response[:links])
-    end
+    bare_orcid = orcidid_without_uri(orcidid)
+
+    return if bare_orcid.empty? # don't even both sending the search if the incoming orcidid is bogus
+
+    result = get_response("/users/#{bare_orcid}", allow404: true)
+
+    return if result.nil?
+
+    OrcidUser.new(result[:sunet_id], result[:orcid_id], result[:scope], result[:access_token], result[:last_updated])
   end
 
   def first_page(page_size = nil)
@@ -147,5 +139,11 @@ class MaisOrcidClient
       auth_scheme: :request_body)
     token = client.client_credentials.get_token
     "Bearer #{token.token}"
+  end
+
+  # @param [string] orcidid which can include a full URI, e.g. "https://sandbox.orcid.org/0000-0002-7262-6251"
+  # @return [string] orcidid without URI (if valid), e.g. "0000-0002-7262-6251" or empty string if none found or orcidid invalid
+  def orcidid_without_uri(orcidid)
+    orcidid.match(/\d{4}-\d{4}-\d{4}-\d{3}(\d|X){1}\z/).to_s
   end
 end
