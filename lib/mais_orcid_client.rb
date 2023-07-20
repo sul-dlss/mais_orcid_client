@@ -84,7 +84,7 @@ class MaisOrcidClient
   def fetch_by_orcidid(orcidid)
     bare_orcid = orcidid_without_uri(orcidid)
 
-    return if bare_orcid.empty? # don't even both sending the search if the incoming orcidid is bogus
+    return if bare_orcid.empty? # don't even bother sending the search if the incoming orcidid is bogus
 
     result = get_response("/users/#{bare_orcid}", allow404: true)
 
