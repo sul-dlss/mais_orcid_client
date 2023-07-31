@@ -1,0 +1,111 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://aswsuat.stanford.edu/api/oauth/token
+    body:
+      encoding: UTF-8
+      string: client_id=abc123&client_secret=def456&grant_type=client_credentials
+    headers:
+      User-Agent:
+      - Faraday v2.7.10
+      Content-Type:
+      - application/x-www-form-urlencoded
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Tue, 18 Jul 2023 21:39:58 GMT
+      Server:
+      - ''
+      Connection:
+      - close
+      X-Correlationid:
+      - Id-ae06b7643b1c50f941fbc694 0
+      Accept:
+      - "*/*"
+      Host:
+      - aswsuat.stanford.edu
+      User-Agent:
+      - Faraday v2.7.10
+      Cache-Control:
+      - no-store
+      Content-Type:
+      - application/json
+      Pragma:
+      - no-cache
+    body:
+      encoding: UTF-8
+      string: '{"access_token":"private_access_token","token_type":"Bearer","expires_in":3600,"scope":"orcid"}'
+  recorded_at: Tue, 18 Jul 2023 21:39:58 GMT
+- request:
+    method: get
+    uri: https://aswsuat.stanford.edu/mais/orcid/v1/users/0000-0002-5466-7797
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - stanford-library-sul-pub
+      Authorization:
+      - Bearer private_bearer_token
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Allow:
+      - GET, HEAD, OPTIONS
+      Max-Forwards:
+      - '20'
+      Via:
+      - 1.0 ofapapiuat01.stanford.edu ()
+      Connection:
+      - close
+      X-Correlationid:
+      - Id-ae06b7643c1cc85b6dc91c72 0
+      Date:
+      - Tue, 18 Jul 2023 21:39:58 GMT
+      Referrer-Policy:
+      - strict-origin
+      Status:
+      - '200'
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains;
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Sl-Assetpath:
+      - "/StanfordUAT/Mais/Orcid/users"
+      X-Sl-Asseturipath:
+      - "/api/1/rest/feed-master/queue/StanfordUAT/Mais/Orcid/users"
+      X-Sl-Authorized:
+      - 'true'
+      X-Sl-Clientip:
+      - 172.20.21.210
+      X-Sl-Pathinfo:
+      - 0000-0002-5466-7797
+      X-Sl-Proxy:
+      - 'false'
+      X-Xss-Protection:
+      - 1; mode=block
+      Content-Security-Policy:
+      - default-src 'self'; font-src *;img-src * data:; script-src *; style-src *;
+      Content-Type:
+      - application/json
+    body:
+      encoding: UTF-8
+      string: '{"sunet_id":"vivnwong","orcid_id":"https://sandbox.orcid.org/0000-0002-5466-7797","access_token":"XXXXXXXX-7e60-4f7b-b7d4-4bd21d9c5618","scope":["/read-limited","/activities/update","/person/update"],"last_updated":"2021-05-28T09:50:14.000"}'
+  recorded_at: Tue, 18 Jul 2023 21:39:58 GMT
+recorded_with: VCR 6.2.0

@@ -37,7 +37,9 @@ RSpec.describe MaisOrcidClient do
     let(:orcid_user_by_sunetid) { subject.fetch_orcid_user(sunetid: "nataliex") }
     let(:bad_orcid_user_by_sunetid) { subject.fetch_orcid_user(sunetid: "totally-bogus") }
     let(:orcid_user_by_orcidid) { subject.fetch_orcid_user(orcidid: "https://sandbox.orcid.org/0000-0002-5466-7797") }
-    let(:bad_orcid_user_by_orcidid) { subject.fetch_orcid_user(orcidid: "totally-bogus") }
+    let(:bare_orcid_user_by_orcidid) { subject.fetch_orcid_user(orcidid: "0000-0002-5466-7797") }
+    let(:bogus_orcid_user_by_orcidid) { subject.fetch_orcid_user(orcidid: "totally-bogus") }
+    let(:bad_orcid_user_by_orcidid) { subject.fetch_orcid_user(orcidid: "https://sandbox.orcid.org/0000-0002-5466-7798") }
     let(:no_ids_provided) { subject.fetch_orcid_user }
 
     it "retrieves a single user by sunetid" do
@@ -56,8 +58,16 @@ RSpec.describe MaisOrcidClient do
     end
 
     it "retrieves a single user by orcidid" do
-      VCR.use_cassette("Mais_Client/_fetch_orcid_users/retrieves all users") do
+      VCR.use_cassette("Mais_Client/_fetch_orcid_user/retreives user by orcidid") do
         expect(orcid_user_by_orcidid).to eq(MaisOrcidClient::OrcidUser.new("vivnwong", "https://sandbox.orcid.org/0000-0002-5466-7797",
+          ["/read-limited", "/activities/update", "/person/update"],
+          "XXXXXXXX-7e60-4f7b-b7d4-4bd21d9c5618", "2021-05-28T09:50:14.000"))
+      end
+    end
+
+    it "retrieves a single user by orcidid when a bare orcid is passed in" do
+      VCR.use_cassette("Mais_Client/_fetch_orcid_user/retreives user by orcidid") do
+        expect(bare_orcid_user_by_orcidid).to eq(MaisOrcidClient::OrcidUser.new("vivnwong", "https://sandbox.orcid.org/0000-0002-5466-7797",
           ["/read-limited", "/activities/update", "/person/update"],
           "XXXXXXXX-7e60-4f7b-b7d4-4bd21d9c5618", "2021-05-28T09:50:14.000"))
       end
@@ -65,9 +75,15 @@ RSpec.describe MaisOrcidClient do
 
     context "when an orcidid user is not found" do
       it "returns nil" do
-        VCR.use_cassette("Mais_Client/_fetch_orcid_users/retrieves all users") do
+        VCR.use_cassette("Mais_Client/_fetch_orcid_user/raises by orcidid") do
           expect(bad_orcid_user_by_orcidid).to be_nil
         end
+      end
+    end
+
+    context "when an orcidid is invalid" do
+      it "returns nil" do
+        expect(bogus_orcid_user_by_orcidid).to be_nil
       end
     end
 
