@@ -25,9 +25,9 @@ RSpec.describe MaisOrcidClient do
     end
 
     context "when server returns 500" do
-      it "raises" do
+      it "raises ServerError" do
         VCR.use_cassette("Mais_Client/_fetch_orcid_users/raises") do
-          expect { orcid_users }.to raise_error("UIT MAIS ORCID User API returned 500")
+          expect { orcid_users }.to raise_error(MaisOrcidClient::UnexpectedResponse::ServerError)
         end
       end
     end
@@ -83,7 +83,9 @@ RSpec.describe MaisOrcidClient do
 
     context "when an orcidid is invalid" do
       it "returns nil" do
-        expect(bogus_orcid_user_by_orcidid).to be_nil
+        VCR.use_cassette("Mais_Client/_fetch_orcid_user/retrieves user") do
+          expect(bogus_orcid_user_by_orcidid).to be_nil
+        end
       end
     end
 
