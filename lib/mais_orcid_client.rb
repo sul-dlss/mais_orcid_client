@@ -28,16 +28,20 @@ class MaisOrcidClient
     # @param client_secret [String] the client secret to authenticate with MAIS
     # @param base_url [String] the base URL for the API
     def configure(client_id:, client_secret:, base_url:)
-      instance.base_url = base_url
-      instance.client_id = client_id
-      instance.client_secret = client_secret
+      instance.config = OpenStruct.new(
+        token: Authenticator.token(client_id, client_secret, base_url),
+        client_id:,
+        client_secret:,
+        base_url:
+      )
+
       self
     end
 
-    delegate :fetch_orcid_users, :fetch_orcid_user, to: :instance
+    delegate :config, :fetch_orcid_users, :fetch_orcid_user, to: :instance
   end
 
-  attr_accessor :base_url, :client_id, :client_secret
+  attr_accessor :config
 
   # @param [int] limit number of users requested
   # @param [int] page_size number of users per page
@@ -104,41 +108,32 @@ class MaisOrcidClient
   end
 
   def get_response(path, allow404: false)
-    response = conn.get("/mais/orcid/v1#{path}")
+    TokenWrapper.refresh(config) do
+      response = conn.get("/mais/orcid/v1#{path}")
 
-    return if allow404 && response.status == 404
+      return if allow404 && response.status == 404
 
-    raise "UIT MAIS ORCID User API returned #{response.status}" if response.status != 200
+      return UnexpectedResponse.call(response) unless response.success?
 
-    body = JSON.parse(response.body).with_indifferent_access
-    raise "UIT MAIS ORCID User API returned an error: #{response.body}" if body.key?(:error)
+      body = JSON.parse(response.body).with_indifferent_access
+      raise UnexpectedResponse::ResponseError, "UIT MAIS ORCID User API returned an error: #{response.body}" if body.key?(:error)
 
-    body
-  end
-
-  # @return [Faraday::Connection]
-  def conn
-    @conn ||= begin
-      conn = Faraday.new(url: base_url) do |faraday|
-        faraday.request :retry, max: 3,
-          interval: 0.5,
-          interval_randomness: 0.5,
-          backoff_factor: 2
-      end
-      conn.options.timeout = 500
-      conn.options.open_timeout = 10
-      conn.headers[:user_agent] = "stanford-library-sul-pub"
-      conn.headers[:authorization] = token
-      conn
+      body
     end
   end
 
-  def token
-    client = OAuth2::Client.new(client_id, client_secret, site: base_url,
-      token_url: "/api/oauth/token", authorize_url: "/api/oauth/authorize",
-      auth_scheme: :request_body)
-    token = client.client_credentials.get_token
-    "Bearer #{token.token}"
+  def conn
+    conn = Faraday.new(url: config.base_url) do |faraday|
+      faraday.request :retry, max: 3,
+        interval: 0.5,
+        interval_randomness: 0.5,
+        backoff_factor: 2
+    end
+    conn.options.timeout = 500
+    conn.options.open_timeout = 10
+    conn.headers[:user_agent] = "stanford-library-sul-pub"
+    conn.headers[:authorization] = "Bearer #{config.token}"
+    conn
   end
 
   # @param [string] orcidid which can include a full URI, e.g. "https://sandbox.orcid.org/0000-0002-7262-6251"
