@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'ostruct'
+
 RSpec.describe MaisOrcidClient do
   # NOTE: This spec uses vcr cassettes from the MAIS API that were edited to obscure access tokens.
   #   The 500 test is also hard to replicate since the API does not return 500s typically.
