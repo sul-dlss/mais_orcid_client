@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: post
-    uri: https://aswsuat.stanford.edu/api/oauth/token
+    uri: https://mais.suapiuat.stanford.edu/api/oauth/token
     body:
       encoding: UTF-8
       string: client_id=5g123456-6cbf-4272-91eb-659948ce441a&client_secret=12ad9c34-80dr-46h9-b7eb-6543108a0c71&grant_type=client_credentials
@@ -46,7 +46,7 @@ http_interactions:
   recorded_at: Tue, 11 May 2021 22:33:00 GMT
 - request:
     method: get
-    uri: https://aswsuat.stanford.edu/mais/orcid/v1/users?page_size=2&scope=ANY
+    uri: https://mais.suapiuat.stanford.edu/mais/orcid/v1/users?page_size=2&scope=ANY
     body:
       encoding: UTF-8
       string: ''

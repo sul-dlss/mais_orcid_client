@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: post
-    uri: https://aswsuat.stanford.edu/api/oauth/token
+    uri: https://mais.suapiuat.stanford.edu/api/oauth/token
     body:
       encoding: UTF-8
       string: client_id=abc123&client_secret=def456&grant_type=client_credentials
@@ -31,7 +31,7 @@ http_interactions:
       Accept:
       - "*/*"
       Host:
-      - aswsuat.stanford.edu
+      - mais.suapiuat.stanford.edu
       User-Agent:
       - Faraday v1.4.1
       Cache-Control:
@@ -46,7 +46,7 @@ http_interactions:
   recorded_at: Mon, 24 May 2021 15:50:14 GMT
 - request:
     method: get
-    uri: https://aswsuat.stanford.edu/mais/orcid/v1/users/totally-bogus
+    uri: https://mais.suapiuat.stanford.edu/mais/orcid/v1/users/totally-bogus
     body:
       encoding: UTF-8
       string: ''

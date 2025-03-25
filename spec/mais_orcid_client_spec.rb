@@ -12,7 +12,7 @@ RSpec.describe MaisOrcidClient do
     described_class.configure(
       client_id: FAKE_CLIENT_ID,
       client_secret: FAKE_CLIENT_SECRET,
-      base_url: 'https://aswsuat.stanford.edu'
+      base_url: 'https://mais.suapiuat.stanford.edu'
     )
   end
 
