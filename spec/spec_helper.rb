@@ -45,11 +45,11 @@ VCR.configure do |c|
 
   # MaIS API client_id and secret sent in authorization request
   c.filter_sensitive_data(FAKE_CLIENT_ID) do |interaction|
-    token_match = interaction.request.body.match(/client_id=(.{8}-.{4}-.{4}-.{4}-.{12})/)
+    token_match = interaction.request.body.match(/client_id=(\w{25})/)
     token_match&.captures&.first
   end
   c.filter_sensitive_data(FAKE_CLIENT_SECRET) do |interaction|
-    token_match = interaction.request.body.match(/client_secret=(.{8}-.{4}-.{4}-.{4}-.{12})/)
+    token_match = interaction.request.body.match(/client_secret=(\w{51})/)
     token_match&.captures&.first
   end
   # MaIS API authorization access token received from authorization request

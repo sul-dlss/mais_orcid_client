@@ -18,8 +18,8 @@ class MaisOrcidClient
     # @return [String]
     def token
       client = OAuth2::Client.new(client_id, client_secret, site: base_url,
-                                                            token_url: '/api/oauth/token',
-                                                            authorize_url: '/api/oauth/authorize',
+                                                            token_url: '/oauth2/token',
+                                                            authorize_url: '/oauth2/authorize',
                                                             auth_scheme: :request_body)
       client.client_credentials.get_token.token
     end

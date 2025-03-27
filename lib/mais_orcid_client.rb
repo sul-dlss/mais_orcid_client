@@ -6,6 +6,7 @@ require 'active_support/core_ext/hash/indifferent_access'
 require 'faraday'
 require 'faraday/retry'
 require 'oauth2'
+require 'ostruct'
 require 'singleton'
 require 'zeitwerk'
 
@@ -27,10 +28,11 @@ class MaisOrcidClient
     # @param client_id [String] the client identifier registered with MAIS
     # @param client_secret [String] the client secret to authenticate with MAIS
     # @param base_url [String] the base URL for the API
-    def configure(client_id:, client_secret:, base_url:)
+    # @param token_url [String] the base token URL for authentication (getting token)
+    def configure(client_id:, client_secret:, base_url:, token_url:)
       # rubocop:disable Style/OpenStructUse
       instance.config = OpenStruct.new(
-        token: Authenticator.token(client_id, client_secret, base_url),
+        token: Authenticator.token(client_id, client_secret, token_url),
         client_id:,
         client_secret:,
         base_url:
@@ -117,7 +119,7 @@ class MaisOrcidClient
   # rubocop:disable Metrics/MethodLength
   def get_response(path, allow404: false)
     TokenWrapper.refresh(config) do
-      response = conn.get("/mais/orcid/v1#{path}")
+      response = conn.get("/orcid/v1#{path}")
 
       return if allow404 && response.status == 404
 

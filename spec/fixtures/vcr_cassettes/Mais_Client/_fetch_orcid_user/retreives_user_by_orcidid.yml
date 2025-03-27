@@ -2,13 +2,13 @@
 http_interactions:
 - request:
     method: post
-    uri: https://mais.suapiuat.stanford.edu/api/oauth/token
+    uri: https://mais-uat.auth.us-west-2.amazoncognito.com/oauth2/token
     body:
       encoding: UTF-8
       string: client_id=abc123&client_secret=def456&grant_type=client_credentials
     headers:
       User-Agent:
-      - Faraday v2.7.10
+      - Faraday v2.12.2
       Content-Type:
       - application/x-www-form-urlencoded
       Accept-Encoding:
@@ -21,32 +21,41 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Tue, 18 Jul 2023 21:39:58 GMT
-      Server:
-      - ''
-      Connection:
-      - close
-      X-Correlationid:
-      - Id-ae06b7643b1c50f941fbc694 0
-      Accept:
-      - "*/*"
-      Host:
-      - mais.suapiuat.stanford.edu
-      User-Agent:
-      - Faraday v2.7.10
-      Cache-Control:
-      - no-store
+      - Thu, 27 Mar 2025 20:21:09 GMT
       Content-Type:
-      - application/json
+      - application/json;charset=UTF-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Set-Cookie:
+      - XSRF-TOKEN=4534b001-91af-4b4a-8645-9364b5df99b6; Path=/; Secure; HttpOnly;
+        SameSite=Lax
+      X-Amz-Cognito-Request-Id:
+      - e155840d-0a50-42f5-9f3c-b13e28960b71
+      X-Content-Type-Options:
+      - nosniff
+      X-Xss-Protection:
+      - 1; mode=block
+      Cache-Control:
+      - no-cache, no-store, max-age=0, must-revalidate
       Pragma:
       - no-cache
+      Expires:
+      - '0'
+      Strict-Transport-Security:
+      - max-age=31536000 ; includeSubDomains
+      X-Frame-Options:
+      - DENY
+      Server:
+      - Server
     body:
       encoding: UTF-8
-      string: '{"access_token":"private_access_token","token_type":"Bearer","expires_in":3600,"scope":"orcid"}'
-  recorded_at: Tue, 18 Jul 2023 21:39:58 GMT
+      string: '{"access_token":"private_access_token","expires_in":3600,"token_type":"Bearer"}'
+  recorded_at: Thu, 27 Mar 2025 20:21:09 GMT
 - request:
     method: get
-    uri: https://mais.suapiuat.stanford.edu/mais/orcid/v1/users/0000-0002-5466-7797
+    uri: https://mais.suapiuat.stanford.edu/orcid/v1/users/0000-0002-5466-7797
     body:
       encoding: US-ASCII
       string: ''
@@ -64,48 +73,22 @@ http_interactions:
       code: 200
       message: OK
     headers:
-      Allow:
-      - GET, HEAD, OPTIONS
-      Max-Forwards:
-      - '20'
-      Via:
-      - 1.0 ofapapiuat01.stanford.edu ()
-      Connection:
-      - close
-      X-Correlationid:
-      - Id-ae06b7643c1cc85b6dc91c72 0
       Date:
-      - Tue, 18 Jul 2023 21:39:58 GMT
-      Referrer-Policy:
-      - strict-origin
-      Status:
-      - '200'
-      Strict-Transport-Security:
-      - max-age=31536000; includeSubDomains;
-      X-Content-Type-Options:
-      - nosniff
-      X-Frame-Options:
-      - SAMEORIGIN
-      X-Sl-Assetpath:
-      - "/StanfordUAT/Mais/Orcid/users"
-      X-Sl-Asseturipath:
-      - "/api/1/rest/feed-master/queue/StanfordUAT/Mais/Orcid/users"
-      X-Sl-Authorized:
-      - 'true'
-      X-Sl-Clientip:
-      - 172.20.21.210
-      X-Sl-Pathinfo:
-      - 0000-0002-5466-7797
-      X-Sl-Proxy:
-      - 'false'
-      X-Xss-Protection:
-      - 1; mode=block
-      Content-Security-Policy:
-      - default-src 'self'; font-src *;img-src * data:; script-src *; style-src *;
+      - Thu, 27 Mar 2025 20:21:10 GMT
       Content-Type:
       - application/json
+      Content-Length:
+      - '241'
+      Connection:
+      - keep-alive
+      X-Amzn-Requestid:
+      - 80bc25b8-b150-4827-8e46-6a760a4c4f1f
+      X-Amz-Apigw-Id:
+      - IGjweGfpvHcEE3w=
+      X-Amzn-Trace-Id:
+      - Root=1-67e5b335-6a438495365817fe76233499
     body:
       encoding: UTF-8
-      string: '{"sunet_id":"vivnwong","orcid_id":"https://sandbox.orcid.org/0000-0002-5466-7797","access_token":"XXXXXXXX-7e60-4f7b-b7d4-4bd21d9c5618","scope":["/read-limited","/activities/update","/person/update"],"last_updated":"2021-05-28T09:50:14.000"}'
-  recorded_at: Tue, 18 Jul 2023 21:39:58 GMT
-recorded_with: VCR 6.2.0
+      string: '{"sunet_id":"vivnwong","orcid_id":"https://sandbox.orcid.org/0000-0002-5466-7797","access_token":"private_access_token","scope":["/read-limited","/activities/update","/person/update"],"last_updated":"2021-05-28T09:50:14.000"}'
+  recorded_at: Thu, 27 Mar 2025 20:21:10 GMT
+recorded_with: VCR 6.3.1

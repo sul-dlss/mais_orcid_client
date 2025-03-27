@@ -35,6 +35,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'faraday'
   spec.add_dependency 'faraday-retry'
   spec.add_dependency 'oauth2'
+  spec.add_dependency 'ostruct'
   spec.add_dependency 'zeitwerk'
 
   spec.add_development_dependency 'byebug'

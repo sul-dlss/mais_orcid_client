@@ -6,6 +6,7 @@ PATH
       faraday
       faraday-retry
       oauth2
+      ostruct
       zeitwerk
 
 GEM
@@ -69,6 +70,7 @@ GEM
       rack (>= 1.2, < 4)
       snaky_hash (~> 2.0)
       version_gem (~> 1.1)
+    ostruct (0.6.1)
     parallel (1.26.3)
     parser (3.3.7.2)
       ast (~> 2.4.1)
