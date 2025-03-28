@@ -113,4 +113,24 @@ RSpec.describe MaisOrcidClient do
       end
     end
   end
+
+  describe 'sets user agent' do
+    let(:client) do
+      described_class.configure(
+        client_id: FAKE_CLIENT_ID,
+        client_secret: FAKE_CLIENT_SECRET,
+        base_url: 'https://mais.suapiuat.stanford.edu',
+        token_url: 'https://mais-uat.auth.us-west-2.amazoncognito.com',
+        user_agent: 'custom-user-agent'
+      )
+    end
+
+    it 'sets the user agent in the request headers' do
+      VCR.use_cassette('Mais_Client/_set_user_agent') do
+        client.fetch_orcid_users(limit: 1)
+        expect(WebMock).to have_requested(:get, 'https://mais.suapiuat.stanford.edu/orcid/v1/users?scope=ANY')
+          .with(headers: { 'User-Agent' => 'custom-user-agent' })
+      end
+    end
+  end
 end

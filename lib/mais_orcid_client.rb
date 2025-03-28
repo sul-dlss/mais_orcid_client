@@ -29,13 +29,15 @@ class MaisOrcidClient
     # @param client_secret [String] the client secret to authenticate with MAIS
     # @param base_url [String] the base URL for the API
     # @param token_url [String] the base token URL for authentication (getting token)
-    def configure(client_id:, client_secret:, base_url:, token_url:)
+    # @param user_agent [String] the user agent to use for requests (default: 'stanford-library-sul-pub')
+    def configure(client_id:, client_secret:, base_url:, token_url:, user_agent: 'stanford-library-sul-pub')
       # rubocop:disable Style/OpenStructUse
       instance.config = OpenStruct.new(
         token: Authenticator.token(client_id, client_secret, token_url),
         client_id:,
         client_secret:,
-        base_url:
+        base_url:,
+        user_agent:
       )
       # rubocop:enable Style/OpenStructUse
 
@@ -135,6 +137,7 @@ class MaisOrcidClient
     end
   end
 
+  # rubocop:disable Metrics/AbcSize
   def conn
     conn = Faraday.new(url: config.base_url) do |faraday|
       faraday.request :retry, max: 3,
@@ -144,10 +147,11 @@ class MaisOrcidClient
     end
     conn.options.timeout = 500
     conn.options.open_timeout = 10
-    conn.headers[:user_agent] = 'stanford-library-sul-pub'
+    conn.headers[:user_agent] = config.user_agent
     conn.headers[:authorization] = "Bearer #{config.token}"
     conn
   end
+  # rubocop:enable Metrics/AbcSize
   # rubocop:enable Metrics/MethodLength
 
   # @param [string] orcidid which can include a full URI, e.g. "https://sandbox.orcid.org/0000-0002-7262-6251"

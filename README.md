@@ -28,10 +28,13 @@ require "mais_orcid_client"
 client = MaisOrcidClient.configure(
   client_id: Settings.mais_orcid.client_id,
   client_secret: Settings.mais_orcid.client_secret,
-  base_url: Settings.mais_orcid.base_url
-  token_url: Settings.mais_orcid.token_url
+  base_url: Settings.mais_orcid.base_url,
+  token_url: Settings.mais_orcid.token_url,
+  user_agent: 'some-user-agent-string-to-send-in-requets' # defaults to 'stanford-library-sul-pub'
 )
-client.fetch_orcid_user(sunetid: 'nataliex')
+client.fetch_orcid_user(sunetid: 'nataliex') # get a single user by sunet
+client.fetch_orcid_user(orcid: '0000-1111-2222-3333-4444') # get a single user by orcidid
+client.fetch_orcid_users # return all users
 ```
 
 You can also invoke methods directly on the client class, which is useful in a
