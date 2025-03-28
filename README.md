@@ -25,12 +25,13 @@ For one-off requests:
 require "mais_orcid_client"
 
 # NOTE: The settings below live in the consumer, not in the gem.
+# The user_agent string can be changed by consumers as requested by MaIS for tracking
 client = MaisOrcidClient.configure(
   client_id: Settings.mais_orcid.client_id,
   client_secret: Settings.mais_orcid.client_secret,
   base_url: Settings.mais_orcid.base_url,
   token_url: Settings.mais_orcid.token_url,
-  user_agent: 'some-user-agent-string-to-send-in-requets' # defaults to 'stanford-library-sul-pub'
+  user_agent: 'some-user-agent-string-to-send-in-requests' # defaults to 'stanford-library-sul-pub'
 )
 client.fetch_orcid_user(sunetid: 'nataliex') # get a single user by sunet
 client.fetch_orcid_user(orcid: '0000-1111-2222-3333-4444') # get a single user by orcidid
