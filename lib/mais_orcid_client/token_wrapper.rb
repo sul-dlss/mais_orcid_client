@@ -6,7 +6,7 @@ class MaisOrcidClient
     def self.refresh(config)
       yield
     rescue UnexpectedResponse::UnauthorizedError
-      config.token = Authenticator.token(config.client_id, config.client_secret, config.base_url)
+      config.token = Authenticator.token(config.client_id, config.client_secret, config.token_url)
       yield
     end
   end

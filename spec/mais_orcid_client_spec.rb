@@ -12,7 +12,8 @@ RSpec.describe MaisOrcidClient do
     described_class.configure(
       client_id: FAKE_CLIENT_ID,
       client_secret: FAKE_CLIENT_SECRET,
-      base_url: 'https://aswsuat.stanford.edu'
+      base_url: 'https://mais.suapiuat.stanford.edu',
+      token_url: 'https://mais-uat.auth.us-west-2.amazoncognito.com'
     )
   end
 
@@ -23,15 +24,15 @@ RSpec.describe MaisOrcidClient do
     it 'retrieves users' do
       VCR.use_cassette('Mais_Client/_fetch_orcid_users/retrieves users') do
         expect(orcid_users.size).to eq(5)
-        expect(orcid_users.first).to eq(MaisOrcidClient::OrcidUser.new('nataliex',
-                                                                       'https://sandbox.orcid.org/0000-0001-7161-1827',
+        expect(orcid_users.first).to eq(MaisOrcidClient::OrcidUser.new('tdelcont',
+                                                                       'https://sandbox.orcid.org/0000-0002-4589-7232',
                                                                        ['/read-limited'],
-                                                                       'XXXXXXXX-1ac5-4ea7-835d-bc6d61ffb9a8',
-                                                                       '2020-01-23T17:06:21.000'))
+                                                                       'private_access_token',
+                                                                       '2021-05-07T22:11:00.000'))
       end
     end
 
-    context 'when server returns 500' do
+    context 'when server returns 404' do
       it 'raises ServerError' do
         VCR.use_cassette('Mais_Client/_fetch_orcid_users/raises') do
           expect { orcid_users }.to raise_error(MaisOrcidClient::UnexpectedResponse::ServerError)
@@ -41,7 +42,7 @@ RSpec.describe MaisOrcidClient do
   end
 
   describe '#fetch_orcid_user' do
-    let(:orcid_user_by_sunetid) { subject.fetch_orcid_user(sunetid: 'nataliex') }
+    let(:orcid_user_by_sunetid) { subject.fetch_orcid_user(sunetid: 'tdelcont') }
     let(:bad_orcid_user_by_sunetid) { subject.fetch_orcid_user(sunetid: 'totally-bogus') }
     let(:orcid_user_by_orcidid) { subject.fetch_orcid_user(orcidid: 'https://sandbox.orcid.org/0000-0002-5466-7797') }
     let(:bare_orcid_user_by_orcidid) { subject.fetch_orcid_user(orcidid: '0000-0002-5466-7797') }
@@ -51,11 +52,11 @@ RSpec.describe MaisOrcidClient do
 
     it 'retrieves a single user by sunetid' do
       VCR.use_cassette('Mais_Client/_fetch_orcid_user/retrieves user') do
-        expect(orcid_user_by_sunetid).to eq(MaisOrcidClient::OrcidUser.new('nataliex',
-                                                                           'https://sandbox.orcid.org/0000-0001-7161-1827',
+        expect(orcid_user_by_sunetid).to eq(MaisOrcidClient::OrcidUser.new('tdelcont',
+                                                                           'https://sandbox.orcid.org/0000-0002-4589-7232',
                                                                            ['/read-limited'],
-                                                                           'XXXXXXXX-1ac5-4ea7-835d-bc6d61ffb9a8',
-                                                                           '2020-01-23T17:06:21.000'))
+                                                                           'private_access_token',
+                                                                           '2021-05-07T22:11:00.000'))
       end
     end
 
@@ -73,7 +74,7 @@ RSpec.describe MaisOrcidClient do
                                                                            'https://sandbox.orcid.org/0000-0002-5466-7797',
                                                                            ['/read-limited', '/activities/update',
                                                                             '/person/update'],
-                                                                           'XXXXXXXX-7e60-4f7b-b7d4-4bd21d9c5618',
+                                                                           'private_access_token',
                                                                            '2021-05-28T09:50:14.000'))
       end
     end
@@ -84,7 +85,7 @@ RSpec.describe MaisOrcidClient do
                                                                                 'https://sandbox.orcid.org/0000-0002-5466-7797',
                                                                                 ['/read-limited', '/activities/update',
                                                                                  '/person/update'],
-                                                                                'XXXXXXXX-7e60-4f7b-b7d4-4bd21d9c5618',
+                                                                                'private_access_token',
                                                                                 '2021-05-28T09:50:14.000'))
       end
     end
@@ -109,6 +110,26 @@ RSpec.describe MaisOrcidClient do
     context 'when sunetid or orcidid not provided' do
       it 'raises an exception' do
         expect { no_ids_provided }.to raise_error(StandardError)
+      end
+    end
+  end
+
+  describe 'sets user agent' do
+    let(:client) do
+      described_class.configure(
+        client_id: FAKE_CLIENT_ID,
+        client_secret: FAKE_CLIENT_SECRET,
+        base_url: 'https://mais.suapiuat.stanford.edu',
+        token_url: 'https://mais-uat.auth.us-west-2.amazoncognito.com',
+        user_agent: 'custom-user-agent'
+      )
+    end
+
+    it 'sets the user agent in the request headers' do
+      VCR.use_cassette('Mais_Client/_set_user_agent') do
+        client.fetch_orcid_users(limit: 1)
+        expect(WebMock).to have_requested(:get, 'https://mais.suapiuat.stanford.edu/orcid/v1/users?scope=ANY')
+          .with(headers: { 'User-Agent' => 'custom-user-agent' })
       end
     end
   end

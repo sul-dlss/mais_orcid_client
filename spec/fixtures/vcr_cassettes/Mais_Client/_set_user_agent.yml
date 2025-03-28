@@ -21,7 +21,7 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Thu, 27 Mar 2025 20:21:08 GMT
+      - Fri, 28 Mar 2025 17:59:29 GMT
       Content-Type:
       - application/json;charset=UTF-8
       Transfer-Encoding:
@@ -29,10 +29,10 @@ http_interactions:
       Connection:
       - keep-alive
       Set-Cookie:
-      - XSRF-TOKEN=73b0b14d-6c2d-4acf-8a66-a43a503b5f1a; Path=/; Secure; HttpOnly;
+      - XSRF-TOKEN=1709d90d-0fcc-4571-a643-96d4d968d647; Path=/; Secure; HttpOnly;
         SameSite=Lax
       X-Amz-Cognito-Request-Id:
-      - 38a61c28-8840-4b58-b67a-a17eec6e7bba
+      - d97c8391-663e-4a1d-8d15-90cfca9bbdf1
       X-Content-Type-Options:
       - nosniff
       X-Xss-Protection:
@@ -52,16 +52,16 @@ http_interactions:
     body:
       encoding: UTF-8
       string: '{"access_token":"private_access_token","expires_in":3600,"token_type":"Bearer"}'
-  recorded_at: Thu, 27 Mar 2025 20:21:08 GMT
+  recorded_at: Fri, 28 Mar 2025 17:59:29 GMT
 - request:
     method: get
-    uri: https://mais.suapiuat.stanford.edu/orcid/v1/users?page_size=2&scope=ANY
+    uri: https://mais.suapiuat.stanford.edu/orcid/v1/users?scope=ANY
     body:
       encoding: US-ASCII
       string: ''
     headers:
       User-Agent:
-      - stanford-library-sul-pub
+      - custom-user-agent
       Authorization:
       - Bearer private_bearer_token
       Accept-Encoding:
@@ -74,7 +74,7 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Thu, 27 Mar 2025 20:21:09 GMT
+      - Fri, 28 Mar 2025 17:59:29 GMT
       Content-Type:
       - application/json
       Content-Length:
@@ -82,13 +82,13 @@ http_interactions:
       Connection:
       - keep-alive
       X-Amzn-Requestid:
-      - 130d2d40-f18d-424b-bc21-8cff058cb05b
+      - 3e11d3ab-d6a0-4a03-b686-904a0ab063c0
       X-Amz-Apigw-Id:
-      - IGjwTGqjvHcEtKw=
+      - IJh8RHbEvHcEf3A=
       X-Amzn-Trace-Id:
-      - Root=1-67e5b334-07edc35a2e7541fa07742ff3
+      - Root=1-67e6e381-36296fa5387aafd66f21fa5d
     body:
       encoding: UTF-8
       string: '{"meta":{"current_page":1,"total_records":12,"page_size":100,"total_pages":1},"results":[{"sunet_id":"tdelcont","orcid_id":"https://sandbox.orcid.org/0000-0002-4589-7232","access_token":"private_access_token","scope":["/read-limited"],"last_updated":"2021-05-07T22:11:00.000"},{"sunet_id":"jlittman","orcid_id":"https://sandbox.orcid.org/0000-0003-3437-349X","access_token":"68cf29cb-294e-4bc8-8afd-96315b06ae04","scope":["/read-limited","/activities/update","/person/update"],"last_updated":"2021-05-14T05:04:24.000"},{"sunet_id":"ddieckma","orcid_id":"https://sandbox.orcid.org/0000-0002-4481-5100","access_token":"f4ff7836-e1b0-4885-83f5-1909e355d017","scope":["/read-limited","/activities/update","/person/update"],"last_updated":"2021-05-14T09:27:54.000"},{"sunet_id":"muet","orcid_id":"https://sandbox.orcid.org/0000-0001-5226-468X","access_token":"ece59039-d70d-4ca0-ab46-f4b77801770d","scope":["/read-limited","/activities/update","/person/update"],"last_updated":"2021-05-14T09:46:44.000"},{"sunet_id":"amyhodge","orcid_id":"https://sandbox.orcid.org/0000-0002-4933-2837","access_token":"e7332b15-4efd-45be-a079-cfbb60397781","scope":["/read-limited","/activities/update","/person/update"],"last_updated":"2021-05-27T14:46:58.000"},{"sunet_id":"jtim","orcid_id":"https://sandbox.orcid.org/0000-0002-7262-6251","access_token":"88674490-60db-442d-90f7-c676bb1f2727","scope":["/read-limited","/activities/update","/person/update"],"last_updated":"2021-05-28T08:15:07.000"},{"sunet_id":"vivnwong","orcid_id":"https://sandbox.orcid.org/0000-0002-5466-7797","access_token":"709b6b08-7e60-4f7b-b7d4-4bd21d9c5618","scope":["/read-limited","/activities/update","/person/update"],"last_updated":"2021-05-28T09:50:14.000"},{"sunet_id":"ndushay","orcid_id":"https://sandbox.orcid.org/0000-0003-0962-2466","access_token":"191a80ba-78a8-4316-b8a9-ff3e37794597","scope":["/read-limited","/activities/update","/person/update"],"last_updated":"2021-06-01T10:21:10.000"},{"sunet_id":"kcasciot","orcid_id":"https://sandbox.orcid.org/0000-0002-7372-3555","access_token":"18e3b4d7-5afa-44ed-a8ba-1dce23cd9472","scope":["/read-limited","/activities/update","/person/update"],"last_updated":"2021-06-04T10:07:52.000"},{"sunet_id":"petucket","orcid_id":"https://sandbox.orcid.org/0000-0002-2230-4756","access_token":"22eb1288-2a84-4878-bcdb-f3ab7a4e8db2","scope":["/read-limited","/activities/update","/person/update"],"last_updated":"2021-10-13T11:37:46.000"},{"sunet_id":"etlouie","orcid_id":"https://sandbox.orcid.org/0000-0003-0525-7799","access_token":"5641416d-3af8-4ee9-b800-5e65ded97284","scope":["/read-limited","/activities/update","/person/update"],"last_updated":"2022-01-14T18:25:01.000"},{"sunet_id":"narmadha","orcid_id":"https://sandbox.orcid.org/0000-0001-7133-5674","access_token":"e8b02595-8672-42d9-8545-e1d92f9c1bf1","scope":["/read-limited","/activities/update","/person/update"],"last_updated":"2022-02-22T18:04:44.000"}],"links":{"self":"/users?scope=any&page_number=1&page_size=100","first":"/users?scope=any&page_number=1&page_size=100","prev":"","next":"","last":"/users?scope=any&page_number=1&page_size=100"}}'
-  recorded_at: Thu, 27 Mar 2025 20:21:08 GMT
+  recorded_at: Fri, 28 Mar 2025 17:59:29 GMT
 recorded_with: VCR 6.3.1

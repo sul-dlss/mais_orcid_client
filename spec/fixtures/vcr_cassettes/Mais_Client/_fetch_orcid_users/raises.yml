@@ -2,13 +2,13 @@
 http_interactions:
 - request:
     method: post
-    uri: https://aswsuat.stanford.edu/api/oauth/token
+    uri: https://mais-uat.auth.us-west-2.amazoncognito.com/oauth2/token
     body:
       encoding: UTF-8
-      string: client_id=5g123456-6cbf-4272-91eb-659948ce441a&client_secret=12ad9c34-80dr-46h9-b7eb-6543108a0c71&grant_type=client_credentials
+      string: client_id=abc123&client_secret=def456&grant_type=client_credentials
     headers:
       User-Agent:
-      - Faraday v1.4.1
+      - Faraday v2.12.2
       Content-Type:
       - application/x-www-form-urlencoded
       Accept-Encoding:
@@ -21,73 +21,74 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Tue, 11 May 2021 22:33:00 GMT
-      Server:
-      - ''
-      Connection:
-      - close
-      X-Correlationid:
-      - Id-1c069b60e22742b7a7cfc7ce 0
-      Accept:
-      - "*/*"
-      Host:
-      - aswstest.stanford.edu
-      User-Agent:
-      - Faraday v1.4.1
-      Cache-Control:
-      - no-store
+      - Thu, 27 Mar 2025 20:04:01 GMT
       Content-Type:
-      - application/json
+      - application/json;charset=UTF-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Set-Cookie:
+      - XSRF-TOKEN=e1988e73-16ec-448f-8843-29418fb6172d; Path=/; Secure; HttpOnly;
+        SameSite=Lax
+      X-Amz-Cognito-Request-Id:
+      - 7184fc2c-c8b9-417c-a7d5-56f8b4ed46d9
+      X-Content-Type-Options:
+      - nosniff
+      X-Xss-Protection:
+      - 1; mode=block
+      Cache-Control:
+      - no-cache, no-store, max-age=0, must-revalidate
       Pragma:
       - no-cache
+      Expires:
+      - '0'
+      Strict-Transport-Security:
+      - max-age=31536000 ; includeSubDomains
+      X-Frame-Options:
+      - DENY
+      Server:
+      - Server
     body:
       encoding: UTF-8
-      string: '{"access_token":"private_access_token","token_type":"Bearer","expires_in":3600,"scope":"orcid"}'
-  recorded_at: Tue, 11 May 2021 22:33:00 GMT
+      string: '{"access_token":"private_access_token","expires_in":3600,"token_type":"Bearer"}'
+  recorded_at: Thu, 27 Mar 2025 20:04:01 GMT
 - request:
     method: get
-    uri: https://aswsuat.stanford.edu/mais/orcid/v1/users?page_size=2&scope=ANY
+    uri: https://mais.suapiuat.stanford.edu/orcid/v1/users?page_size=2&scope=ANY
     body:
-      encoding: UTF-8
+      encoding: US-ASCII
       string: ''
     headers:
       User-Agent:
       - stanford-library-sul-pub
-      Accept:
-      - "*/*"
-      Accept-Encoding:
-      - gzip,deflate
-      Date:
-      - Tue, 11 May 2021 22:33:00 GMT
       Authorization:
       - Bearer private_bearer_token
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
   response:
     status:
       code: 500
-      message: Internal Server Error
+      message: OK
     headers:
-      Allow:
-      - GET, HEAD, OPTIONS
-      Server:
-      - ''
-      Content-Length:
-      - '0'
-      Connection:
-      - close
-      X-Correlationid:
-      - Id-1c069b60c827515dde98b1b3 0
-      Accept:
-      - "*/*"
-      Authorization:
-      - Bearer private_bearer_token
       Date:
-      - Tue, 11 May 2021 22:33:00 GMT
-      Host:
-      - aswstest.stanford.edu
-      User-Agent:
-      - stanford-library-sul-pub
+      - Thu, 27 Mar 2025 20:04:02 GMT
+      Content-Type:
+      - application/json
+      Content-Length:
+      - '3139'
+      Connection:
+      - keep-alive
+      X-Amzn-Requestid:
+      - c9ffdc20-6c74-4e1e-aea9-970244b6cb4a
+      X-Amz-Apigw-Id:
+      - IGhP1Hx3vHcEumA=
+      X-Amzn-Trace-Id:
+      - Root=1-67e5af31-1f46afb15467a4cd4cfac721
     body:
       encoding: UTF-8
-      string: ''
-  recorded_at: Tue, 11 May 2021 22:33:00 GMT
-recorded_with: VCR 6.0.0
+      string: '{"status":500,"errorMessage":"Boom! Something went wrong on the server."}'
+  recorded_at: Thu, 27 Mar 2025 20:04:02 GMT
+recorded_with: VCR 6.3.1
