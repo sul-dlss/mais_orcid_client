@@ -64,9 +64,8 @@ class MaisOrcidClient
                                      result[:last_updated])
         return orcid_users if limit && limit == orcid_users.size
       end
-      # Currently next is always present, even on last page. (This may be changed in future.)
       next_page = response.dig(:links, :next)
-      return orcid_users if last_page?(response[:links])
+      return orcid_users if next_page.nil? || next_page.empty?
     end
   end
   # rubocop:enable Metrics/MethodLength
@@ -112,10 +111,6 @@ class MaisOrcidClient
     path = '/users?scope=ANY'
     path += "&page_size=#{page_size}" if page_size
     path
-  end
-
-  def last_page?(links)
-    links[:self] == links[:last]
   end
 
   # rubocop:disable Metrics/MethodLength
