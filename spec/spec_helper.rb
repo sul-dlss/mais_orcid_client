@@ -43,6 +43,10 @@ VCR.configure do |c|
   }
   c.configure_rspec_metadata!
 
+  # The MaIS API token in the header
+  c.filter_sensitive_data('API_TOKEN') do |interaction|
+    interaction.request.headers['Authorization']
+  end
   # MaIS API client_id and secret sent in authorization request
   c.filter_sensitive_data(FAKE_CLIENT_ID) do |interaction|
     token_match = interaction.request.body.match(/client_id=(\w{25})/)

@@ -78,7 +78,7 @@ To record new cassettes:
 2. Add your new spec with a new cassette name (or delete a previous cassette to re-create it).
 3. Run just that new spec (important: else previous specs may use cassettes that have redacted credentials, causing your new spec to fail).
 4. You should get a new cassette with the name you specified in the spec.
-5. The cassette should have access tokens and secrets sanitized by the config in `spec_helper.rb`, but you can double check.
+5. The cassette should have access tokens and secrets sanitized by the config in `spec_helper.rb`, but you can double check.  The one exception is the access_token for each ORCID user, these need to be set to "private_access_token" in the cassette manually, as VCR filter_sensitive_data can only replace the first instance.
 6. Set your configuration at the top of the spec back to the fake client_id and client_secret values.
 7. The spec that checks for a raised exception when fetching all users may need to be handcrafted in the cassette to look it raised a 500.  It's hard to get the actual URL to produce a 500 on this call.
 7. Re-run all the specs - they should pass now without making real calls.
