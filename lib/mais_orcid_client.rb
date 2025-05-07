@@ -37,6 +37,7 @@ class MaisOrcidClient
         client_id:,
         client_secret:,
         base_url:,
+        token_url:,
         user_agent:
       )
       # rubocop:enable Style/OpenStructUse
