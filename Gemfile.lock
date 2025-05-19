@@ -52,10 +52,10 @@ GEM
     hashie (5.0.0)
     i18n (1.14.7)
       concurrent-ruby (~> 1.0)
-    json (2.11.3)
+    json (2.12.0)
     jwt (2.10.1)
       base64
-    language_server-protocol (3.17.0.4)
+    language_server-protocol (3.17.0.5)
     lint_roller (1.1.0)
     logger (1.7.0)
     minitest (5.25.5)
@@ -63,13 +63,14 @@ GEM
       bigdecimal (~> 3.1)
     net-http (0.6.0)
       uri
-    oauth2 (2.0.9)
-      faraday (>= 0.17.3, < 3.0)
-      jwt (>= 1.0, < 3.0)
+    oauth2 (2.0.10)
+      faraday (>= 0.17.3, < 4.0)
+      jwt (>= 1.0, < 4.0)
+      logger (~> 1.2)
       multi_xml (~> 0.5)
       rack (>= 1.2, < 4)
       snaky_hash (~> 2.0)
-      version_gem (~> 1.1)
+      version_gem (>= 1.1.8, < 3)
     ostruct (0.6.1)
     parallel (1.27.0)
     parser (3.3.8.0)
@@ -78,7 +79,7 @@ GEM
     prism (1.4.0)
     public_suffix (6.0.2)
     racc (1.8.1)
-    rack (3.1.14)
+    rack (3.1.15)
     rainbow (3.1.1)
     rake (13.2.1)
     regexp_parser (2.10.0)
@@ -96,7 +97,7 @@ GEM
       diff-lcs (>= 1.2.0, < 2.0)
       rspec-support (~> 3.13.0)
     rspec-support (3.13.3)
-    rubocop (1.75.5)
+    rubocop (1.75.6)
       json (~> 2.3)
       language_server-protocol (~> 3.17.0.2)
       lint_roller (~> 1.1.0)
@@ -177,4 +178,4 @@ DEPENDENCIES
   webmock
 
 BUNDLED WITH
-   2.6.8
+   2.6.9
