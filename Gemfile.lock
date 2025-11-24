@@ -57,7 +57,7 @@ GEM
     language_server-protocol (3.17.0.5)
     lint_roller (1.1.0)
     logger (1.7.0)
-    minitest (5.26.1)
+    minitest (5.26.2)
     multi_xml (0.7.2)
       bigdecimal (~> 3.1)
     net-http (0.8.0)
@@ -177,4 +177,4 @@ DEPENDENCIES
   webmock
 
 BUNDLED WITH
-   2.7.2
+  4.0.0.beta1
