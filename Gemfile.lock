@@ -27,8 +27,8 @@ GEM
       uri (>= 0.13.1)
     addressable (2.9.0)
       public_suffix (>= 2.0.2, < 8.0)
-    anonymous_loader (0.1.1)
-      version_gem (~> 1.1, >= 1.1.12)
+    anonymous_loader (0.1.2)
+      version_gem (~> 1.1, >= 1.1.13)
     ast (2.4.3)
     auth-sanitizer (0.2.2)
       version_gem (~> 1.1, >= 1.1.10)
@@ -58,7 +58,7 @@ GEM
     i18n (1.15.2)
       concurrent-ruby (~> 1.0)
     io-console (0.8.2)
-    json (2.19.9)
+    json (2.20.0)
     jwt (3.2.0)
       base64
     language_server-protocol (3.17.0.5)
@@ -123,7 +123,7 @@ GEM
     rubocop-ast (1.49.1)
       parser (>= 3.3.7.2)
       prism (~> 1.7)
-    rubocop-capybara (2.23.0)
+    rubocop-capybara (3.0.0)
       lint_roller (~> 1.1)
       rubocop (~> 1.81)
     rubocop-factory_bot (2.28.0)
@@ -159,7 +159,7 @@ GEM
     unicode-emoji (4.2.0)
     uri (1.1.1)
     vcr (6.4.0)
-    version_gem (1.1.12)
+    version_gem (1.1.13)
     webmock (3.26.2)
       addressable (>= 2.8.0)
       crack (>= 0.3.2)
@@ -190,4 +190,4 @@ DEPENDENCIES
   webmock
 
 BUNDLED WITH
-  4.0.14
+  4.0.15
