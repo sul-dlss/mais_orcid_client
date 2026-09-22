@@ -43,7 +43,7 @@ GEM
       rexml
     diff-lcs (1.6.2)
     drb (2.2.3)
-    faraday (2.14.3)
+    faraday (2.14.4)
       faraday-net_http (>= 2.0, < 3.5)
       json
       logger
@@ -56,7 +56,7 @@ GEM
       logger
     i18n (1.15.2)
       concurrent-ruby (~> 1.0)
-    io-console (0.9.3)
+    io-console (0.9.4)
     json (3.0.2)
     jwt (3.3.0)
       base64
@@ -148,9 +148,9 @@ GEM
       version_gem (~> 1.1, >= 1.1.14)
     tzinfo (2.0.6)
       concurrent-ruby (~> 1.0)
-    unicode-display_width (3.2.0)
-      unicode-emoji (~> 4.1)
-    unicode-emoji (4.2.0)
+    unicode-display_width (3.3.0)
+      unicode-emoji (~> 4.3)
+    unicode-emoji (4.3.0)
     uri (1.1.1)
     vcr (6.4.0)
     version_gem (1.1.15)
@@ -184,4 +184,4 @@ DEPENDENCIES
   webmock
 
 BUNDLED WITH
-  4.0.20
+  4.0.21
